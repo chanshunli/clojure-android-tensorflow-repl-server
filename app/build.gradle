@@ -38,6 +38,7 @@ dependencies {
         // nrepl depends on clojure 1.2.0
         exclude group: 'org.clojure', module: 'clojure'
     }
+    compile 'org.tensorflow:tensorflow-android:1.2.0'
 
 }
 
