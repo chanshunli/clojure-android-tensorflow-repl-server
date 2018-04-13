@@ -8,7 +8,8 @@
    (com.example.ndksample.myapplication.R$id)
    (com.example.ndksample.myapplication.R$layout)
    (android.os Handler)
-   (org.tensorflow.contrib.android TensorFlowInferenceInterface))
+   (org.tensorflow.contrib.android TensorFlowInferenceInterface)
+   (org.tensorflow Operation))
   (:gen-class
    :name "plain.someactivity2.MyActivity"
    :exposes-methods {onCreate superOnCreate}
