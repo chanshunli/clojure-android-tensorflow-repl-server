@@ -1,4 +1,5 @@
 (ns plain.someactivity2
+  (:require [clojure.tools.nrepl.server :as repl])
   (:import
     (android.support.v7.app AppCompatActivity)
     (android.util Log)
@@ -21,6 +22,13 @@
   (.superOnCreate this bundle)
   (.setContentView this com.example.ndksample.myapplication.R$layout/activity_main)
 
+  (try
+    (do
+      (Log/i "repl 启动中" "...")
+      (repl/start-server :bind "127.0.0.1" :port 6868))
+    (catch Exception e
+      (Log/i "已启动" "clojure repl server")))
+  
   (.. this
       (findViewById com.example.ndksample.myapplication.R$id/getButton)
       (setOnClickListener (reify android.view.View$OnClickListener

@@ -34,6 +34,10 @@ dependencies {
 
     compile "http-kit:http-kit:2.2.0"
 
+    compile "org.clojure:core.async:0.1.346.0-17112a-alpha", {
+        exclude group: 'org.clojure', module: 'clojure'
+    }
+
     compile 'org.clojure:tools.nrepl:0.2.10', {
         // nrepl depends on clojure 1.2.0
         exclude group: 'org.clojure', module: 'clojure'
