@@ -5,7 +5,8 @@
     (android.util Log)
     (com.example.ndksample.myapplication.R$id)
     (com.example.ndksample.myapplication.R$layout)
-    (android.os Handler))
+    (android.os Handler)
+    (org.tensorflow.contrib.android TensorFlowInferenceInterface))
   (:require [org.httpkit.client :as http])
 
   (:gen-class
