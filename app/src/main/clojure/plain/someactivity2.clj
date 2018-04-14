@@ -30,15 +30,15 @@
 (defonce camera-view-atom (atom nil))
 (defonce classifier-atom (atom nil))
 
-(defn some-onResume [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
+(defn some-onResume [^plain.someactivity2.MyActivity this]
   (.superOnResume this bundle)
   (.start @camera-view-atom))
 
-(defn some-onPause [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
+(defn some-onPause [^plain.someactivity2.MyActivity this]
   (.stop @camera-view-atom)
   (.superOnPause this bundle))
 
-(defn some-onDestroy [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
+(defn some-onDestroy [^plain.someactivity2.MyActivity this]
   (.superOnDestroy this bundle)  
   ;;        executor.execute(new Runnable() {
   ;;            @Override
