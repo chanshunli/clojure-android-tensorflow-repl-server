@@ -27,6 +27,27 @@
 (defn fetch [url]
   (http/get url))
 
+(defonce camera-view-atom (atom nil))
+(defonce classifier-atom (atom nil))
+
+(defn some-onResume [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
+  (.superOnResume this bundle)
+  (.start @camera-view-atom))
+
+(defn some-onPause [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
+  (.stop @camera-view-atom)
+  (.superOnPause this bundle))
+
+(defn some-onDestroy [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
+  (.superOnDestroy this bundle)  
+  ;;        executor.execute(new Runnable() {
+  ;;            @Override
+  ;;            public void run() {
+  ;;                classifier.close();
+  ;;            }
+  ;;        });
+  )
+
 (defn some-onCreate [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
   (.superOnCreate this bundle)
   (.setContentView this com.example.ndksample.myapplication.R$layout/activity_main)
@@ -39,6 +60,7 @@
       (Log/i "已启动" "clojure repl server")))
   
   (let [camera-view (.findViewById this com.example.ndksample.myapplication.R$id/cameraView)
+        _ (reset! camera-view-atom camera-view)
         image-view-result (.findViewById this com.example.ndksample.myapplication.R$id/imageViewResult)
         text-view-result (.findViewById this com.example.ndksample.myapplication.R$id/textViewResult)
         _ (.setMovementMethod text-view-result (ScrollingMovementMethod.))
@@ -51,7 +73,12 @@
                              (onError [^CameraKitError camera-kit-error]
                                (Log/i "onError" (str camera-kit-error)) )
                              (onImage [^CameraKitImage camera-kit-image]
-                               (Log/i "onImage" "......") )
+                               (Log/i "onImage" "......")
+                               (let [bitmap (.getBitmap camera-kit-image)
+                                     bitmap (Bitmap/createScaledBitmap bitmap 224 224 false)
+                                     _ (.setImageBitmap image-view-result bitmap)
+                                     results (.recognizeImage @classifier-atom bitmap)]
+                                 (.setText text-view-result (.toString results))) )
                              (onVideo [^CameraKitVideo camera-kit-video] )))
     ;;
     (.setOnClickListener btn-toggle-camera
