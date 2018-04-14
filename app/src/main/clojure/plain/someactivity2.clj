@@ -12,7 +12,7 @@
    (org.tensorflow Operation)
    (android.graphics Bitmap)
    (android.text.method ScrollingMovementMethod)
-   (android.view View)
+   (android.view View View$OnClickListener)
    (android.widget Button ImageView TextView)
    (com.wonderkiln.camerakit CameraKitError CameraKitEvent CameraKitEventListener CameraKitImage CameraKitVideo CameraView)
    (java.util List)
@@ -44,7 +44,25 @@
         _ (.setMovementMethod text-view-result (ScrollingMovementMethod.))
         btn-toggle-camera (.findViewById this com.example.ndksample.myapplication.R$id/btnToggleCamera)
         btn-detect-object (.findViewById this com.example.ndksample.myapplication.R$id/btnDetectObject)]
-    (Log/i "....." "-------")
+    (.addCameraKitListener camera-view
+                           (proxy [CameraKitEventListener] []
+                             (onEvent [^CameraKitEvent camera-kit-event]
+                               (Log/i "onEvent" (str camera-kit-event)) )
+                             (onError [^CameraKitError camera-kit-error]
+                               (Log/i "onError" (str camera-kit-error)) )
+                             (onImage [^CameraKitImage camera-kit-image]
+                               (Log/i "onImage" "......") )
+                             (onVideo [^CameraKitVideo camera-kit-video] )))
+    ;;
+    (.setOnClickListener btn-toggle-camera
+                         (proxy [View$OnClickListener] []
+                           (onClick [View v]
+                             (.toggleFacing camera-view))))
+    ;;
+    (.setOnClickListener btn-detect-object
+                         (proxy [View$OnClickListener] []
+                           (onClick [View v]
+                             (.captureImage camera-view))))
     )
   #_(.. this
       (findViewById com.example.ndksample.myapplication.R$id/getButton)
