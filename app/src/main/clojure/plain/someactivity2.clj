@@ -13,11 +13,11 @@
    (android.graphics Bitmap)
    (android.text.method ScrollingMovementMethod)
    (android.view View)
-   (android.widget.Button ImageView TextView)
-   (com.wonderkiln.camerakit.CameraKitError CameraKitEvent CameraKitEventListener CameraKitImage CameraKitVideo CameraView)
+   (android.widget Button ImageView TextView)
+   (com.wonderkiln.camerakit CameraKitError CameraKitEvent CameraKitEventListener CameraKitImage CameraKitVideo CameraView)
    (java.util List)
-   (java.util.concurrent.Executor Executors)
-   #_(com.mindorks.tensorflowexample TensorFlowImageClassifier Classifier))
+   (java.util.concurrent Executor Executors)
+   (com.mindorks.tensorflowexample TensorFlowImageClassifier Classifier))
   (:gen-class
    :name "plain.someactivity2.MyActivity"
    :exposes-methods {onCreate superOnCreate}
