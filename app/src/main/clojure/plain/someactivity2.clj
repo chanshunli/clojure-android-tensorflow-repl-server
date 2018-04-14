@@ -38,12 +38,12 @@
     (catch Exception e
       (Log/i "已启动" "clojure repl server")))
   
-  (let [camera-view (.findViewById this com.example.ndksample.myapplication.R$id.cameraView)
-        image-view-result (.findViewById this com.example.ndksample.myapplication.R$id.imageViewResult)
-        text-view-result (.findViewById this com.example.ndksample.myapplication.R$id.textViewResult)
+  (let [camera-view (.findViewById this com.example.ndksample.myapplication.R$id/cameraView)
+        image-view-result (.findViewById this com.example.ndksample.myapplication.R$id/imageViewResult)
+        text-view-result (.findViewById this com.example.ndksample.myapplication.R$id/textViewResult)
         _ (.setMovementMethod text-view-result (ScrollingMovementMethod.))
-        btn-toggle-camera (.findViewById this com.example.ndksample.myapplication.R$id.btnToggleCamera)
-        btn-detect-object (.findViewById this com.example.ndksample.myapplication.R$id.btnDetectObject)]
+        btn-toggle-camera (.findViewById this com.example.ndksample.myapplication.R$id/btnToggleCamera)
+        btn-detect-object (.findViewById this com.example.ndksample.myapplication.R$id/btnDetectObject)]
     (Log/i "....." "-------")
     )
   #_(.. this
