@@ -1,7 +1,8 @@
 (ns plain.someactivity2
-  (:require [clojure.tools.nrepl.server :as repl]
-            [clojure.core.async :as a]
-            [org.httpkit.client :as http])
+  (:require
+   [clojure.tools.nrepl.server :as repl]
+   [clojure.core.async :as a]
+   [org.httpkit.client :as http])
   (:import
    (android.support.v7.app AppCompatActivity)
    (android.util Log)
@@ -20,7 +21,10 @@
    (com.mindorks.tensorflowexample TensorFlowImageClassifier Classifier))
   (:gen-class
    :name "plain.someactivity2.MyActivity"
-   :exposes-methods {onCreate superOnCreate}
+   :exposes-methods {onCreate superOnCreate
+                     onResume superonResume
+                     onPause superonPause
+                     onDestroy superonDestroy}
    :extends android.support.v7.app.AppCompatActivity
    :prefix "some-"))
 
@@ -92,13 +96,13 @@
                              (.captureImage camera-view))))
     )
   #_(.. this
-      (findViewById com.example.ndksample.myapplication.R$id/getButton)
-      (setOnClickListener (reify android.view.View$OnClickListener
-                            (onClick [this v]
-                              (Log/i "clojure" "hello")))))
+        (findViewById com.example.ndksample.myapplication.R$id/getButton)
+        (setOnClickListener (reify android.view.View$OnClickListener
+                              (onClick [this v]
+                                (Log/i "clojure" "hello")))))
 
   #_(let [tv (.findViewById this com.example.ndksample.myapplication.R$id/text)
-        handler (Handler.)]
-    (.start (Thread. (fn []
-                       (let [data (:body @(fetch "https://clojure.org"))]
-                         (.post handler #(.setText tv data))))))))
+          handler (Handler.)]
+      (.start (Thread. (fn []
+                         (let [data (:body @(fetch "https://clojure.org"))]
+                           (.post handler #(.setText tv data))))))))
