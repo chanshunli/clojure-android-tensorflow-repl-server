@@ -22,9 +22,9 @@
   (:gen-class
    :name "plain.someactivity2.MyActivity"
    :exposes-methods {onCreate superOnCreate
-                     onResume superonResume
-                     onPause superonPause
-                     onDestroy superonDestroy}
+                     onResume superOnResume
+                     onPause superOnPause
+                     onDestroy superOnDestroy}
    :extends android.support.v7.app.AppCompatActivity
    :prefix "some-"))
 
