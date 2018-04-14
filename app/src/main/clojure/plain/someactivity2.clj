@@ -7,9 +7,17 @@
    (android.util Log)
    (com.example.ndksample.myapplication.R$id)
    (com.example.ndksample.myapplication.R$layout)
-   (android.os Handler)
+   (android.os Handler Bundle)
    (org.tensorflow.contrib.android TensorFlowInferenceInterface)
-   (org.tensorflow Operation))
+   (org.tensorflow Operation)
+   (android.graphics Bitmap)
+   (android.text.method ScrollingMovementMethod)
+   (android.view View)
+   (android.widget.Button ImageView TextView)
+   (com.wonderkiln.camerakit.CameraKitError CameraKitEvent CameraKitEventListener CameraKitImage CameraKitVideo CameraView)
+   (java.util List)
+   (java.util.concurrent.Executor Executors)
+   #_(com.mindorks.tensorflowexample TensorFlowImageClassifier Classifier))
   (:gen-class
    :name "plain.someactivity2.MyActivity"
    :exposes-methods {onCreate superOnCreate}
