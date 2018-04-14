@@ -33,7 +33,8 @@
 
 (defonce camera-view-atom (atom nil))
 (defonce classifier-atom (atom nil))
-
+(def executor (Executors/newSingleThreadExecutor))
+  
 (defn some-onResume [^plain.someactivity2.MyActivity this]
   (.superOnResume this)
   (.start @camera-view-atom))
@@ -52,17 +53,18 @@
   ;;        });
   )
 
+(defonce this-atom (atom nil))
+
 (defn some-onCreate [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
   (.superOnCreate this bundle)
   (.setContentView this com.example.ndksample.myapplication.R$layout/activity_main)
-
+  (reset! this-atom this)
   (try
     (do
       (Log/i "repl 启动中" "...")
       (repl/start-server :bind "127.0.0.1" :port 6868))
     (catch Exception e
-      (Log/i "已启动" "clojure repl server")))
-  
+      (Log/i "已启动" "clojure repl server")))  
   (let [camera-view (.findViewById this com.example.ndksample.myapplication.R$id/cameraView)
         _ (reset! camera-view-atom camera-view)
         image-view-result (.findViewById this com.example.ndksample.myapplication.R$id/imageViewResult)
@@ -94,15 +96,19 @@
                          (proxy [View$OnClickListener] []
                            (onClick [^View v]
                              (.captureImage camera-view))))
+    ;;
+    (.execute executor
+              (proxy [Runnable] []
+                (run []
+                  (try
+                    (do
+                      (TensorFlowImageClassifier/create
+                       (.getAssets this)
+                       "file:///android_asset/tensorflow_inception_graph.pb"
+                       "file:///android_asset/imagenet_comp_graph_label_strings.txt"
+                       224 117 1 "input" "output")
+                      (.setVisibility btn-detect-object View/VISIBLE))
+                    (catch Exception e
+                      (Log/i "初始化TensorFlow失败!" (str e)))))))
     )
-  #_(.. this
-        (findViewById com.example.ndksample.myapplication.R$id/getButton)
-        (setOnClickListener (reify android.view.View$OnClickListener
-                              (onClick [this v]
-                                (Log/i "clojure" "hello")))))
-
-  #_(let [tv (.findViewById this com.example.ndksample.myapplication.R$id/text)
-          handler (Handler.)]
-      (.start (Thread. (fn []
-                         (let [data (:body @(fetch "https://clojure.org"))]
-                           (.post handler #(.setText tv data))))))))
+  )
