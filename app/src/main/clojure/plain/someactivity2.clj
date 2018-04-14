@@ -34,7 +34,7 @@
 (defonce camera-view-atom (atom nil))
 (defonce classifier-atom (atom nil))
 (def executor (Executors/newSingleThreadExecutor))
-  
+
 (defn some-onResume [^plain.someactivity2.MyActivity this]
   (.superOnResume this)
   (.start @camera-view-atom))
@@ -54,6 +54,7 @@
   )
 
 (defonce this-atom (atom nil))
+(defonce btn-detect-object-atom (atom nil))
 
 (defn some-onCreate [^plain.someactivity2.MyActivity this ^android.os.Bundle bundle]
   (.superOnCreate this bundle)
@@ -71,7 +72,8 @@
         text-view-result (.findViewById this com.example.ndksample.myapplication.R$id/textViewResult)
         _ (.setMovementMethod text-view-result (ScrollingMovementMethod.))
         btn-toggle-camera (.findViewById this com.example.ndksample.myapplication.R$id/btnToggleCamera)
-        btn-detect-object (.findViewById this com.example.ndksample.myapplication.R$id/btnDetectObject)]
+        btn-detect-object (.findViewById this com.example.ndksample.myapplication.R$id/btnDetectObject)
+        _ (reset! btn-detect-object-atom btn-detect-object)]
     (.addCameraKitListener camera-view
                            (proxy [CameraKitEventListener] []
                              (onEvent [^CameraKitEvent camera-kit-event]
@@ -102,12 +104,18 @@
                 (run []
                   (try
                     (do
-                      (TensorFlowImageClassifier/create
-                       (.getAssets this)
-                       "file:///android_asset/tensorflow_inception_graph.pb"
-                       "file:///android_asset/imagenet_comp_graph_label_strings.txt"
-                       224 117 1 "input" "output")
-                      (.setVisibility btn-detect-object View/VISIBLE))
+                      (reset!
+                       classifier-atom
+                       (TensorFlowImageClassifier/create
+                        (.getAssets this)
+                        "file:///android_asset/tensorflow_inception_graph.pb"
+                        "file:///android_asset/imagenet_comp_graph_label_strings.txt"
+                        224 117 1 "input" "output"))
+                      (.runOnUiThread this
+                                      (proxy [Runnable] []
+                                        (run []
+                                          (.setVisibility btn-detect-object View/VISIBLE))))
+                      (Log/i "初始化TensorFlow成功!" "..."))
                     (catch Exception e
                       (Log/i "初始化TensorFlow失败!" (str e)))))))
     )
