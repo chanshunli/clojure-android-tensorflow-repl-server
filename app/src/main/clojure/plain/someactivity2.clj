@@ -56,12 +56,12 @@
     ;;
     (.setOnClickListener btn-toggle-camera
                          (proxy [View$OnClickListener] []
-                           (onClick [View v]
+                           (onClick [^View v]
                              (.toggleFacing camera-view))))
     ;;
     (.setOnClickListener btn-detect-object
                          (proxy [View$OnClickListener] []
-                           (onClick [View v]
+                           (onClick [^View v]
                              (.captureImage camera-view))))
     )
   #_(.. this
