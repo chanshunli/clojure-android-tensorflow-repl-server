@@ -38,13 +38,13 @@
     (catch Exception e
       (Log/i "已启动" "clojure repl server")))
   
-  (.. this
+  #_(.. this
       (findViewById com.example.ndksample.myapplication.R$id/getButton)
       (setOnClickListener (reify android.view.View$OnClickListener
                             (onClick [this v]
                               (Log/i "clojure" "hello")))))
 
-  (let [tv (.findViewById this com.example.ndksample.myapplication.R$id/text)
+  #_(let [tv (.findViewById this com.example.ndksample.myapplication.R$id/text)
         handler (Handler.)]
     (.start (Thread. (fn []
                        (let [data (:body @(fetch "https://clojure.org"))]

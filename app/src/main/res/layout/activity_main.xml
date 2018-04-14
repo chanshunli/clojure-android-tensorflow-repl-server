@@ -62,7 +62,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/black"
         android:visibility="gone" />
-  
+<!--  
     <Button
         android:id="@+id/getButton"
         android:layout_width="wrap_content"
@@ -76,5 +76,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/getButton"
         tools:text="Hello World!" />
+-->
 
 </android.support.constraint.ConstraintLayout>
