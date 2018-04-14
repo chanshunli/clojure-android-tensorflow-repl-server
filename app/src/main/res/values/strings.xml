@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Clojure Nrepl Server</string>
     <string name="toggle_camera">切换摄像头</string>
-    <string name="detect_object">Detect Object</string>
+    <string name="detect_object">识别目标</string>
 </resources>

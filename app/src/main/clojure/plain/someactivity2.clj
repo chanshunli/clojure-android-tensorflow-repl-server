@@ -99,7 +99,21 @@
                            (onClick [^View v]
                              (.captureImage camera-view))))
     ;;
-    (.execute executor
+    (do
+      (reset!
+       classifier-atom
+       (TensorFlowImageClassifier/create
+        (.getAssets this)
+        "file:///android_asset/tensorflow_inception_graph.pb"
+        "file:///android_asset/imagenet_comp_graph_label_strings.txt"
+        224 117 1 "input" "output"))
+      (.runOnUiThread this
+                      (proxy [Runnable] []
+                        (run []
+                          (.setVisibility btn-detect-object View/VISIBLE))))
+      (Log/i "初始化TensorFlow成功!" "..."))
+    
+    #_(.execute executor
               (proxy [Runnable] []
                 (run []
                   (try
