@@ -2,6 +2,7 @@
 
 ### Usage
 
+* apk 下载安装 app-debug.apk
 * Emacs ` M-x cider-connect 6868 `
 
 ### Future
