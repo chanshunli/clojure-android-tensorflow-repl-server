@@ -12,5 +12,9 @@
 * 手机上的数据分析, 和数据可视化中心: 整合Termux命令环境的R, Python, Julia等
 * 支持语音输入编程
 
-#### Android上较难解决的安装包问题
+### Android上较难解决的安装包问题: Python, R安装,gcc等Linux问题
 * https://github.com/chanshunli/gcc_termux
+
+### 开发环境效果
+
+![](https://raw.githubusercontent.com/chanshunli/clojure-android-tensorflow-repl-server/master/demo.jpeg)
