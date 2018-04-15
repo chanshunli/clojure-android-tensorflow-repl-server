@@ -44,14 +44,7 @@
   (.superOnPause this))
 
 (defn some-onDestroy [^plain.someactivity2.MyActivity this]
-  (.superOnDestroy this)
-  ;;        executor.execute(new Runnable() {
-  ;;            @Override
-  ;;            public void run() {
-  ;;                classifier.close();
-  ;;            }
-  ;;        });
-  )
+  (.superOnDestroy this))
 
 (defonce this-atom (atom nil))
 (defonce btn-detect-object-atom (atom nil))
@@ -112,25 +105,5 @@
                         (run []
                           (.setVisibility btn-detect-object View/VISIBLE))))
       (Log/i "初始化TensorFlow成功!" "..."))
-    
-    #_(.execute executor
-              (proxy [Runnable] []
-                (run []
-                  (try
-                    (do
-                      (reset!
-                       classifier-atom
-                       (TensorFlowImageClassifier/create
-                        (.getAssets this)
-                        "file:///android_asset/tensorflow_inception_graph.pb"
-                        "file:///android_asset/imagenet_comp_graph_label_strings.txt"
-                        224 117 1 "input" "output"))
-                      (.runOnUiThread this
-                                      (proxy [Runnable] []
-                                        (run []
-                                          (.setVisibility btn-detect-object View/VISIBLE))))
-                      (Log/i "初始化TensorFlow成功!" "..."))
-                    (catch Exception e
-                      (Log/i "初始化TensorFlow失败!" (str e)))))))
     )
   )
