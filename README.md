@@ -1,5 +1,7 @@
 # Android Tensorflow on Clojure repl sever
 
+### 随时随地手机开发,安卓上的Clojure数据分析开发环境,整合clojupyter 
+
 ### Usage
 
 * apk 下载安装 [app-debug.apk](https://raw.githubusercontent.com/chanshunli/clojure-android-tensorflow-repl-server/master/app-debug.apk)
